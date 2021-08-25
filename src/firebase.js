@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+
 const firebaseConfig = {
     apiKey: "AIzaSyDrXk-EEMkLtVkgyeUWyf1kjF_6U9lYgxM",
     authDomain: "resume-builder-7dbc0.firebaseapp.com",

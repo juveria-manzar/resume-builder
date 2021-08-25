@@ -1,8 +1,15 @@
-import { useHistory } from "react-router-dom";
+
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Redirect, useHistory } from "react-router-dom";
+import { auth } from "../firebase";
 
 let SignUp = () => {
   let history = useHistory();
-
+  let [password, setPassword] = useState("");
+  let [confirmPassword, setConfirmPassword] = useState("");
+  let [email, setEmail] = useState("");
+  let user = useSelector((state) => state);
   return (
     <>
       <div className="row">
@@ -16,6 +23,10 @@ let SignUp = () => {
               <input
                 type="email"
                 class="form-control"
+                value={email}
+                onChange={(e)=>{
+                    setEmail(e.currentTarget.value)
+                }}
                 id="exampleInputEmail1"
               />
             </div>
@@ -26,6 +37,10 @@ let SignUp = () => {
               <input
                 type="password"
                 class="form-control"
+                value={password}
+                onChange={(e)=>{
+                    setPassword(e.currentTarget.value)
+                }}
                 id="exampleInputPassword1"
               />
             </div>
@@ -37,11 +52,20 @@ let SignUp = () => {
               <input
                 type="password"
                 class="form-control"
+                value={confirmPassword}
+                onChange={(e)=>{
+                    setConfirmPassword(e.currentTarget.value)
+                }}
                 id="exampleInputPassword2"
               />
             </div>
 
-            <button class="btn btn-primary">Sign Up</button>
+            <button onClick={(e)=>{
+                e.preventDefault();
+                if(password==confirmPassword){
+                    auth.createUserWithEmailAndPassword(email,password)
+                }
+            }} class="btn btn-primary">Sign Up</button>
             <br />
             <br />
             <button onClick={()=>{
